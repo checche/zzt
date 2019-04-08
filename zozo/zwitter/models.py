@@ -110,7 +110,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 class Tweet(models.Model):
     """つぶやき情報"""
     text = models.CharField('本文', max_length = 140)
-    author = models.ForeignKey(CustomUser, verbose_name=_('author'), on_delete=models.PROTECT, related_name='tweets')
+    author = models.ForeignKey(CustomUser, verbose_name=_('author'), on_delete=models.CASCADE, related_name='tweets')
     favorite_by = models.ManyToManyField(CustomUser, verbose_name=_('favorite'), blank=True, related_name='favorite')
     created_at = models.DateTimeField(_('published'), default=timezone.now)
     def __str__(self):
