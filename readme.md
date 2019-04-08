@@ -31,11 +31,11 @@ python manage.py test
 #### 管理者
 adminにアクセス可能  
 ID:checche  
-ユーザー名:たーくん
+ユーザー名:たーくん  
 パスワード:testroot
 #### 一般ユーザー
 ID:hirata  
-ユーザー名:ひらたさん
+ユーザー名:ひらたさん  
 パスワード:testgeneral
 
 ### サインアップ
