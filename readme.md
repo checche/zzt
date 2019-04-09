@@ -113,17 +113,31 @@ curl -i -X POST \
  'http://localhost:8000/tweets/'
 ```
 ### 投稿修正
+PUTの場合はtextが必須になる.
+```
+curl -i -X PUT \
+   -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
+   -H "Content-Type:application/json" \
+   -d \
+'{
+    "text": "testdesu",
+    "favorite_by": [
+        4
+    ]
+}' \
+ 'http://localhost:8000/tweets/16/'
+```
+PATCHの場合textがなくても良い
 ```
 curl -i -X PATCH \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
    -H "Content-Type:application/json" \
    -d \
 '{
-    "pk": 16,
-    "author": 8,
     "text": "testdesu",
-    "created_at": "2019-04-09T01:50:20.456007+09:00",
-    "favorite_by": []
+    "favorite_by": [
+        4
+    ]
 }' \
  'http://localhost:8000/tweets/16/'
 ```
