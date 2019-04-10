@@ -4,24 +4,24 @@
 1. まず[anaconda](https://www.anaconda.com/)をインストール  
 2. 以下のコマンドをターミナルで実行
 ```
-conda install -c anaconda django  
-conda install -c conda-forge djangorestframework  
-conda install -c auto django-filter
-conda install -c conda-forge django-rest-auth  
-conda install -c conda-forge django-allauth  
-conda install -c conda-forge python-coreapi 
+% conda install -c anaconda django  
+% conda install -c conda-forge djangorestframework  
+% conda install -c auto django-filter
+% conda install -c conda-forge django-rest-auth  
+% conda install -c conda-forge django-allauth  
+% conda install -c conda-forge python-coreapi 
 ```
 
 ## サーバー立ち上げ手順
 ```
-cd zozo
-python manage.py runserver
+% cd zozo
+% python manage.py runserver
 ```
-
+[localhost:8000/](localhost:8000/)にサーバが立ち上がる 
 ## テスト実行手順
 以下のコマンドで実行できる.
 ```
-python manage.py test
+% python manage.py test
 ```
 
 ## curlでの使い方  
@@ -142,7 +142,7 @@ curl -i -X DELETE \
  'http://localhost:8000/tweets/15/'
 ```
 ## 追加機能
-###ユーザー管理  
+### ユーザー管理・管理者機能 
 #### 管理者ユーザー
 * ユーザリストの閲覧
 * 全ユーザーの情報を閲覧
@@ -152,11 +152,11 @@ curl -i -X DELETE \
 * 自分の情報の編集ができる  
 * 自分の情報の削除ができる 
 
-管理ユーザー作成
+管理ユーザー作成方法
 ```
 python manage.py createsuperuser
 ```
-管理ユーザーのトークンを用いて以下のコマンドで確認できる.
+管理ユーザーのトークンを用いて以下のコマンドでユーザーリストを確認できる.
 ```
 curl -i -X GET \
    -H "Authorization:Token 8bc73c04904be8724dd01dacfca6e553c9d4ad2b" \
@@ -173,4 +173,9 @@ curl -i -X POST \
 '' \
  'http://localhost:8000/tweets/20/fav/'
 ```
-### ken
+### Core API  
+Core APIという機能を使ってスキーマをブラウザ上で確認できる.  
+[localhost:8000/docs/](localhost:8000/docs/)
+
+### トークン認証
+django-rest-authを使ってトークン認証を実装した.

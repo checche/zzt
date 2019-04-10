@@ -1,13 +1,18 @@
 from django.shortcuts import render
 import django_filters
-from rest_framework import viewsets, filters, generics, permissions, status
+from rest_framework import viewsets, filters, generics, permissions, status, mixins
 from .models import CustomUser, Tweet
 from .serializer import CustomUserSerializer, TweetSerializer
 from .permissions import IsAuthorOrReadOnly, IsUserOrReadOnly, IsUserOrAdmin
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 
-class CustomUserViewSet(viewsets.ModelViewSet):
+class CustomUserViewSet( 
+                   mixins.RetrieveModelMixin, 
+                   mixins.UpdateModelMixin,
+                   mixins.DestroyModelMixin,
+                   mixins.ListModelMixin,
+                   viewsets.GenericViewSet):
     """ユーザー情報"""
     # permission_classes = ()
     queryset = CustomUser.objects.all()
