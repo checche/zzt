@@ -3,20 +3,32 @@ import django_filters
 from rest_framework import viewsets, filters, generics, permissions, status
 from .models import CustomUser, Tweet
 from .serializer import CustomUserSerializer, TweetSerializer
-from .permissions import IsAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly, IsUserOrReadOnly, IsUserOrAdmin
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 
 class CustomUserViewSet(viewsets.ModelViewSet):
     """ユーザー情報"""
-    permission_classes = (permissions.IsAdminUser,)
+    # permission_classes = ()
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
+    
+    def get_permissions(self):
+        """パーミッションをメソッドによって変える"""
+        if self.action in ('retrieve', 'destroy'):
+            permission_classes = [permissions.IsAuthenticated, IsUserOrAdmin]
+        elif self.action in ('update', 'partial_update'):
+            permission_classes = [IsUserOrReadOnly]
+        else:
+            permission_classes = [permissions.IsAdminUser]
+        
+        return [permission() for permission in permission_classes]
 
 class TweetViewSet(viewsets.ModelViewSet):
     """ツイート情報"""
     queryset = Tweet.objects.all()
     serializer_class = TweetSerializer
-    filter_fields = ('author', 'text')
+    filter_fields = ('text',)
 
     def get_permissions(self):
         """パーミッションをメソッドによって変える"""
@@ -40,3 +52,12 @@ class TweetViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def Favorite(request, tweet_pk):
+    """短文をお気に入り登録する"""
+    favorite_tweet = Tweet.objects.get(pk=tweet_pk)
+    favorite_tweet.favorite_by.add(request.user)
+    return Response({"message": "favorite tweet number {}".format(tweet_pk), "data": request.data})
+    

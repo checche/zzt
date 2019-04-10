@@ -19,7 +19,7 @@ python manage.py runserver
 ```
 
 ## テスト実行手順
-テストコードはすでに完成しているので,以下のコマンドで実行すれば良い.
+以下のコマンドで実行できる.
 ```
 python manage.py test
 ```
@@ -107,8 +107,7 @@ curl -i -X POST \
    -H "Content-Type:application/json" \
    -d \
 '{
-    "text": "writtenbytestboy2",
-    "favorite_by": []
+    "text": "writtenbytestboy2"
 }' \
  'http://localhost:8000/tweets/'
 ```
@@ -120,10 +119,7 @@ curl -i -X PUT \
    -H "Content-Type:application/json" \
    -d \
 '{
-    "text": "testdesu",
-    "favorite_by": [
-        4
-    ]
+    "text": "testdesu"
 }' \
  'http://localhost:8000/tweets/16/'
 ```
@@ -134,10 +130,7 @@ curl -i -X PATCH \
    -H "Content-Type:application/json" \
    -d \
 '{
-    "text": "testdesu",
-    "favorite_by": [
-        4
-    ]
+    "text": "testdesu"
 }' \
  'http://localhost:8000/tweets/16/'
 ```
@@ -149,3 +142,35 @@ curl -i -X DELETE \
  'http://localhost:8000/tweets/15/'
 ```
 ## 追加機能
+###ユーザー管理  
+#### 管理者ユーザー
+* ユーザリストの閲覧
+* 全ユーザーの情報を閲覧
+* 全ユーザーの情報を削除することができる.
+#### 非管理ユーザー
+* 全ユーザーの情報を閲覧
+* 自分の情報の編集ができる  
+* 自分の情報の削除ができる 
+
+管理ユーザー作成
+```
+python manage.py createsuperuser
+```
+管理ユーザーのトークンを用いて以下のコマンドで確認できる.
+```
+curl -i -X GET \
+   -H "Authorization:Token 8bc73c04904be8724dd01dacfca6e553c9d4ad2b" \
+ 'http://localhost:8000/users/'
+```
+
+### 投稿のお気に入り登録
+以下のようにPOSTすることで投稿をお気に入り登録することができる.
+```
+curl -i -X POST \
+   -H "Authorization:Token 8bc73c04904be8724dd01dacfca6e553c9d4ad2b" \
+   -H "Content-Type:application/json" \
+   -d \
+'' \
+ 'http://localhost:8000/tweets/20/fav/'
+```
+### ken
