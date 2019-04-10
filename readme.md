@@ -17,7 +17,7 @@
 % cd zozo
 % python manage.py runserver
 ```
-[localhost:8000/](localhost:8000/)にサーバが立ち上がる 
+[http://localhost:8000/](http://localhost:8000/)にサーバが立ち上がる 
 ## テスト実行手順
 以下のコマンドで実行できる.
 ```
@@ -40,7 +40,7 @@ ID:hirata
 
 ### サインアップ
 ```
-curl -i -X POST \
+% curl -i -X POST \
    -H "Content-Type:application/json" \
    -d \
 '{
@@ -60,7 +60,7 @@ curl -i -X POST \
 
 ### ログイン
 ```
-curl -i -X POST \
+% curl -i -X POST \
    -H "Content-Type:application/json" \
    -d \
 '{
@@ -79,7 +79,7 @@ curl -i -X POST \
 
 ### ログアウト
 ```
-curl -i -X POST \
+% curl -i -X POST \
    -H "Authorization:Token af827a086d6d1a3578e0024c48684c874830501b" \
    -H "Content-Type:application/json" \
    -d \
@@ -95,14 +95,14 @@ curl -i -X POST \
 
 ### 投稿一覧
 ```
-curl -i -X GET \
+% curl -i -X GET \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
  'http://localhost:8000/tweets/'
 ```
 
 ### 投稿
 ```
-curl -i -X POST \
+% curl -i -X POST \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
    -H "Content-Type:application/json" \
    -d \
@@ -114,7 +114,7 @@ curl -i -X POST \
 ### 投稿修正
 PUTの場合はtextが必須になる.
 ```
-curl -i -X PUT \
+% curl -i -X PUT \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
    -H "Content-Type:application/json" \
    -d \
@@ -125,7 +125,7 @@ curl -i -X PUT \
 ```
 PATCHの場合textがなくても良い
 ```
-curl -i -X PATCH \
+% curl -i -X PATCH \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
    -H "Content-Type:application/json" \
    -d \
@@ -137,7 +137,7 @@ curl -i -X PATCH \
 
 ### 投稿削除
 ```
-curl -i -X DELETE \
+% curl -i -X DELETE \
    -H "Authorization:Token 93d8d273ba5d900c840aafb94368aa789cf547bf" \
  'http://localhost:8000/tweets/15/'
 ```
@@ -152,13 +152,13 @@ curl -i -X DELETE \
 * 自分の情報の編集ができる  
 * 自分の情報の削除ができる 
 
-管理ユーザー作成方法
+#### 管理ユーザー作成方法
 ```
 python manage.py createsuperuser
 ```
 管理ユーザーのトークンを用いて以下のコマンドでユーザーリストを確認できる.
 ```
-curl -i -X GET \
+% curl -i -X GET \
    -H "Authorization:Token 8bc73c04904be8724dd01dacfca6e553c9d4ad2b" \
  'http://localhost:8000/users/'
 ```
@@ -166,7 +166,7 @@ curl -i -X GET \
 ### 投稿のお気に入り登録
 以下のようにPOSTすることで投稿をお気に入り登録することができる.
 ```
-curl -i -X POST \
+% curl -i -X POST \
    -H "Authorization:Token 8bc73c04904be8724dd01dacfca6e553c9d4ad2b" \
    -H "Content-Type:application/json" \
    -d \
@@ -175,7 +175,7 @@ curl -i -X POST \
 ```
 ### Core API  
 Core APIという機能を使ってスキーマをブラウザ上で確認できる.  
-[localhost:8000/docs/](localhost:8000/docs/)
+[http://localhost:8000/docs/](http://localhost:8000/docs/)
 
 ### トークン認証
-django-rest-authを使ってトークン認証を実装した.
+django-allauthを使ってトークン認証を実装した.
