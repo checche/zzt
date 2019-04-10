@@ -1,6 +1,15 @@
 # zzt課題
 
 ## 開発環境構築手順  
+### 環境
+Python 3.6.8  
+django 2.1.5  
+django-allauth 0.39.1  
+django-filter 2.1.0  
+django-rest-auth 0.9.3  
+djangorestframework 3.9.2  
+
+### 手順
 1. まず[anaconda](https://www.anaconda.com/)をインストール  
 2. 以下のコマンドをターミナルで実行
 ```
